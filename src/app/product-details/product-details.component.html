@@ -1,0 +1,21 @@
+
+  <h2>Product Details</h2>
+
+  <div *ngIf="product">
+    <h3>{{ product.name }}</h3>
+    <h4>{{ product.price | currency }}</h4>
+    <div *ngIf="product.qty!==0, else elseStatement">
+       <h5>{{product.qty}}</h5>
+    </div>
+    <ng-template #elseStatement>
+      <h5 style="color: red;">Out of Stock</h5>
+    </ng-template>
+    <div *ngFor="let item of mp | keyvalue">
+      <div *ngIf="product.name === item.key.name">
+        <strong style="color: green;"> Already {{item.value}} box of {{item.key.name}} in cart </strong>
+      </div>
+    </div>
+    <p>{{ product.description }}</p>
+    <button (click)="addToCart(product);productInCart();" [disabled]="product.qty===0">Buy</button>
+  </div>
+

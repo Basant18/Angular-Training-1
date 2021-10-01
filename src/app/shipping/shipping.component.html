@@ -1,0 +1,107 @@
+<h3>Shipping Prices</h3>
+<!--<p>{{browserRefresh ? "==> browser refresh <==" : "XX NOT a browser refresh XX" }}</p>-->
+<!--<div *ngIf="browserRefresh===true">
+  {{chartMethod()}}
+</div>-->
+
+<!--<div class="cart-item" *ngFor="let shipping of shippingCosts | async">
+    <a [title]="shipping.price+' for '+shipping.type">{{shipping.type}}</a><br><br>
+    <span class="main">{{shipping.type}}</span>
+    <span class="main">{{shipping.price | currency}}</span>
+</div>-->
+
+<!--<h3>Choose Your Favorite Cricket Player</h3>
+<select #cricket (change)="update($event)">
+    <option value="default">----</option>
+    <option *ngFor="let player of players" [value]="player">
+        {{player}}
+    </option>
+</select>
+  
+<p>You selected {{selected}}</p>-->
+<button style="background-color: red;" (click)="initializeMethod()">Reset Cart</button><br><br>
+<form [formGroup]="form" (ngSubmit)="submit()">
+            
+    <div class="form-group">  
+        <label for="shipping">ShippingList:</label>  
+        <select formControlName="shipping" class="form-control" (change)="changeShipping($event)">  
+            <option disabled>Select Shipping</option>  
+            <option>Choose Shipping</option>  
+            <option *ngFor="let s of shipment">{{s.type}}&nbsp;{{s.price}}</option>
+            <!--<option *ngFor="let s of shippingCosts | async">{{s.type}}&nbsp;{{s.price}}</option>-->
+            <!--<option *ngFor="let s of shipments$ | async">{{s.type}}&nbsp;{{s.price}}</option>-->  
+        </select>   
+    </div>  
+    
+    <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>  
+</form>
+
+<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+    
+    <label for="name">Name:<strong style="color: red;">*</strong> </label>
+    <input id="name" type="text" formControlName="name" required>
+    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+      <div *ngIf="name.errors?.required" style="color: red;">
+        Name is required.
+      </div>
+      <div *ngIf="name.errors?.minlength" style="color: red;">
+        Name must be at least 5 characters long.
+      </div>
+    </div>
+
+    <label for="email">Email:<strong style="color: red;">*</strong> </label>
+    <input id="email" type="email" formControlName="email" required>
+    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+      <div *ngIf="email.errors?.required" style="color: red;">
+        Email is required.
+      </div>
+      <div *ngIf="email.errors?.email" style="color: red;">
+        Email must be a valid Email Format.
+      </div>
+    </div>
+
+    <div formGroupName="address">
+        <h2>Address</h2>
+      
+        <label for="street">Street: </label>
+        <input id="street" type="text" formControlName="street">
+        
+        <label for="city">City: </label>
+        <input id="city" type="text" formControlName="city">
+      
+        <label for="state">State:<strong style="color: red;">*</strong> </label>
+        <input id="state" type="text" formControlName="state" required>
+      
+        <label for="zip">Zip Code:<strong style="color: red;">*</strong> </label>
+        <input id="zip" type="text" formControlName="zip" required>
+        <div *ngIf="zip.invalid && (zip.dirty || zip.touched)" class="alert alert-danger">
+          <div *ngIf="zip.errors?.required" style="color: red;">
+            Zip is required.
+          </div>
+          <div *ngIf="zip.errors?.minlength" style="color: red;">
+            Zip must be at least 6 characters long.
+          </div>
+          <div *ngIf="zip.errors?.maxlength" style="color: red;">
+            Zip must be at most 6 characters long.
+          </div>
+        </div>
+      
+    </div>
+
+    <!--<div formArrayName="phone_no">-->
+        <h2>Phone No</h2>
+        <button type="button" (click)="addPhone()">+ Add another phone</button>
+      
+        <div [formGroup]="phone" *ngFor="let phone of checkoutForm.controls.phone_no.controls; let i=index">
+          <!--<div [formGroup]="phone">-->
+            <label for="phone-{{i}}">Phone No:<strong style="color: red;">*</strong> </label>
+            <input id="phone-{{i}}" type="tel" formControlName="phone_no">
+          <!--</div>-->
+          
+        </div>
+    <!--</div>-->
+
+    <button class="button" type="submit" (click)="initializeMethod()" [disabled]="checkoutForm.invalid">Purchase</button>
+</form>
+
+
