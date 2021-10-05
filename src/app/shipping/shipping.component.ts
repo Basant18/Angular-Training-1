@@ -142,7 +142,7 @@ export class ShippingComponent implements OnInit , CanComponentDeactivate  {
           //this.formBuilder.control('',[Validators.required,Validators.minLength(10),Validators.maxLength(10)])
           this.getPhoneFormGroup()
         ])
-      },{Validators: [checkValidator]}); 
+      },{validators: [checkValidator]}); 
   }
 
   getPhoneFormGroup(){
